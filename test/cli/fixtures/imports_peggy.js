@@ -188,8 +188,6 @@ function peg$parse(input, options) {
   var peg$startRuleFunction = peg$parsea;
 
 
-
-
   var peg$currPos = options.peg$currPos | 0;
   var peg$savedPos = peg$currPos;
   var peg$posDetailsCache = [{ line: 1, column: 1 }];

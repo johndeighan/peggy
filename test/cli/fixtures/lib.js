@@ -187,8 +187,6 @@ function peg$parse(input, options) {
   var peg$c4 = "floo";
   var peg$c5 = "fazboo";
   var peg$c6 = "b2boo";
-
-
   var peg$e0 = peg$literalExpectation("default", false);
   var peg$e1 = peg$literalExpectation("baz", false);
   var peg$e2 = peg$literalExpectation("boo", false);
