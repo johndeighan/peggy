@@ -11,3 +11,4 @@ docs/_site
 lib/compiler/passes/bytecodefile.js
 lib/compiler/passes/bytecodes.md
 lib/compiler/passes/generate-js.new.js
+test/cli/fixtures/lib.js
