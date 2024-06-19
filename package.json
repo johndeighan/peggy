@@ -10,8 +10,9 @@
   ],
   "exports": {
     ".": "./src/lib/PeggyTracers.js",
-    "./OpDumper": "./lib/compiler/passes/OpDumper.js",
-    "./ByteCodeWriter": "./lib/compiler/passes/ByteCodeWriter.js"
+    "./OpDumper": "./src/lib/OpDumper.js",
+    "./ByteCodeWriter": "./src/lib/ByteCodeWriter.js",
+    "./PeggyTracers": "./src/lib/PeggyTracers.js"
   },
   "homepage": "https://peggyjs.org/",
   "repository": "peggyjs/peggy",
@@ -27,6 +28,7 @@
     "peggy": "bin/peggy.js"
   },
   "scripts": {
+    "brew": "coffee -c .",
     "clean": "rimraf -g build browser bin/*.map && mkdir browser",
     "parser": "node bin/peggy.js -o lib/parser.js --format commonjs --allowed-start-rules Grammar,ImportsAndSource src/parser.pegjs ",
     "examples": "node bin/peggy.js -c docs/js/options.js docs/js/examples.peggy",

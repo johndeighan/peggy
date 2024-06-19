@@ -23,87 +23,71 @@
     getOpInfo(op) {
       switch (op) {
         case 35:
-          return 'PUSH_EMPTY_STRING';
+          return ['PUSH_EMPTY_STRING'];
         case 5:
-          return 'PUSH_CUR_POS';
+          return ['PUSH_CUR_POS'];
         case 1:
-          return 'PUSH_UNDEFINED';
+          return ['PUSH_UNDEFINED'];
         case 2:
-          return 'PUSH_NULL';
+          return ['PUSH_NULL'];
         case 3:
-          return 'PUSH_FAILED';
+          return ['PUSH_FAILED'];
         case 4:
-          return 'PUSH_EMPTY_ARRAY';
+          return ['PUSH_EMPTY_ARRAY'];
         case 6:
-          return 'POP';
+          return ['POP'];
         case 7:
-          return 'POP_CUR_POS';
+          return ['POP_CUR_POS'];
         case 8:
-          return {
-            name: 'POP_N',
-            lArgInfo: ['/number']
-          };
+          return ['POP_N', '/number'];
         case 9:
-          return 'NIP';
+          return ['NIP'];
         case 10:
-          return 'APPEND';
+          return ['APPEND'];
         case 11:
-          return {
-            name: 'WRAP',
-            lArgInfo: [undef]
-          };
+          return ['WRAP', undef];
         case 12:
-          return 'TEXT';
+          return ['TEXT'];
         case 36:
-          return {
-            name: 'PLUCK',
-            lArgInfo: [undef, undef, undef, 'p']
-          };
+          return ['PLUCK', undef, undef, undef, 'p'];
+        case 13:
+          return ['IF', 'OK/block', 'FAIL/block'];
         case 14:
-          return {
-            name: 'IF_ERROR',
-            lArgInfo: ['OK/block', 'FAIL/block']
-          };
+          return ['IF_ERROR', 'OK/block', 'FAIL/block'];
         case 15:
-          return {
-            name: 'IF_NOT_ERROR',
-            lArgInfo: ['OK/block', 'FAIL/block']
-          };
+          return ['IF_NOT_ERROR', 'OK/block', 'FAIL/block'];
+        case 30:
+          return ['IF_LT', 'OK/block', 'FAIL/block'];
+        case 31:
+          return ['IF_GE', 'OK/block', 'FAIL/block'];
+        case 32:
+          return ['IF_LT_DYNAMIC', 'OK/block', 'FAIL/block'];
+        case 33:
+          return ['IF_GE_DYNAMIC', 'OK/block', 'FAIL/block'];
+        case 16:
+          return ['WHILE_NOT_ERROR', 'OK/block'];
         case 17:
-          return {
-            name: 'MATCH_ANY',
-            lArgInfo: ['OK/block', 'FAIL/block']
-          };
+          return ['MATCH_ANY', 'OK/block', 'FAIL/block'];
         case 18:
-          return {
-            name: 'MATCH_STRING',
-            lArgInfo: ['/literal', 'OK/block', 'FAIL/block']
-          };
+          return ['MATCH_STRING', '/literal', 'OK/block', 'FAIL/block'];
+        case 19:
+          return ['MATCH_STRING_IC', '/literal', 'OK/block', 'FAIL/block'];
         case 20:
-          return {
-            name: 'MATCH_CHAR_CLASS',
-            lArgInfo: ['/class']
-          };
+          return ['MATCH_CHAR_CLASS', '/class'];
         case 21:
-          return {
-            name: 'ACCEPT_N',
-            lArgInfo: ['/number']
-          };
+          return ['ACCEPT_N', '/number'];
         case 22:
-          return {
-            name: 'ACCEPT_STRING',
-            lArgInfo: ['/literal']
-          };
+          return ['ACCEPT_STRING', '/literal'];
         case 23:
-          return {
-            name: 'FAIL',
-            lArgInfo: ['/expectation']
-          };
+          return ['FAIL', '/expectation'];
+        case 24:
+          return ['LOAD_SAVED_POS', 'pos/number'];
+        case 25:
+          return ['UPDATE_SAVED_POS', 'pos/number'];
+        case 26:
+          return ['CALL'];
         case 27:
-          return {
-            name: 'RULE',
-            lArgInfo: ['/rule']
-          };
+          return ['RULE', '/rule'];
         default:
           return void 0;
       }
@@ -173,24 +157,24 @@
 
     // ..........................................................
     opStr(lOpcodes) {
-      var arg, hInfo, i, infoStr, j, lArgDesc, lArgInfo, lArgs, lLines, lSubOps, label, len, nOpcodes, name, numArgs, op, pos, type;
+      var arg, i, infoStr, j, lArgDesc, lArgInfo, lArgs, lInfo, lLines, lSubOps, label, len, nOpcodes, name, numArgs, op, pos, type;
       lLines = [];
       pos = 0;
       nOpcodes = lOpcodes.length;
       while (pos < nOpcodes) {
         op = lOpcodes[pos];
         pos += 1;
-        hInfo = this.getOpInfo(op);
-        if (notdefined(hInfo)) {
+        lInfo = this.getOpInfo(op);
+        if (notdefined(lInfo)) {
           lLines.push(`OPCODE ${op}`);
           continue;
         }
-        if (isString(hInfo)) {
-          hInfo = {
-            name: hInfo
-          };
+        name = lInfo[0];
+        if (lInfo[1]) {
+          lArgInfo = lInfo.slice(1);
+        } else {
+          lArgInfo = [];
         }
-        ({name, lArgInfo} = hInfo);
         if (notdefined(lArgInfo)) {
           lArgInfo = [];
         }

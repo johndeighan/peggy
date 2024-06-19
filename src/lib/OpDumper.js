@@ -8,10 +8,13 @@
   ({undef, defined, notdefined, isString, assert, croak, range, indented, undented} = require('./vllu.js'));
 
   OpDumper = class OpDumper {
-    constructor() {
+    constructor(name) {
+      this.name = name;
       this.level = 0;
+      this.lLines = [];
     }
 
+    // ..........................................................
     incLevel() {
       return this.level += 1;
     }
@@ -20,15 +23,25 @@
       return this.level -= 1;
     }
 
+    // ..........................................................
     out(str) {
-      return console.log("  ".repeat(this.level) + str);
+      this.lLines.push("  ".repeat(this.level) + str);
     }
 
+    // ..........................................................
     outBC(lByteCodes) {
       this.out('OPCODES:');
       this.out(lByteCodes.map((x) => {
         return x.toString();
       }).join(' '));
+    }
+
+    // ..........................................................
+    write() {
+      var fileName;
+      fileName = `./${this.name}.opcodes.txt`;
+      console.log(`Writing opcodes to ${fileName}`);
+      fs.writeFileSync(fileName, lLines.join("\n"));
     }
 
   };

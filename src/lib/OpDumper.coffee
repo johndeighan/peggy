@@ -9,20 +9,37 @@ fs = require("fs")
 
 class OpDumper
 
-	constructor: () ->
+	constructor: (@name) ->
 
 		@level = 0
+		@lLines = []
+
+	# ..........................................................
 
 	incLevel: () -> @level += 1
 	decLevel: () -> @level -= 1
 
+	# ..........................................................
+
 	out: (str) ->
-		console.log "  ".repeat(@level) + str
+		@lLines.push "  ".repeat(@level) + str
+		return
+
+	# ..........................................................
 
 	outBC: (lByteCodes) ->
 
 		@out 'OPCODES:'
 		@out lByteCodes.map((x) => x.toString()).join(' ');
+		return
+
+	# ..........................................................
+
+	write: () ->
+
+		fileName = "./#{@name}.opcodes.txt"
+		console.log "Writing opcodes to #{fileName}"
+		fs.writeFileSync(fileName, lLines.join("\n"))
 		return
 
 # --------------------------------------------------------------------------
