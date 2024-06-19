@@ -10,6 +10,7 @@
   ],
   "exports": {
     ".": "./src/lib/PeggyTracers.js",
+    "./PeggyTracers": "./src/lib/PeggyTracers.js",
     "./OpDumper": "./src/lib/OpDumper.js",
     "./ByteCodeWriter": "./src/lib/ByteCodeWriter.js",
     "./PeggyTracers": "./src/lib/PeggyTracers.js"
