@@ -8,13 +8,6 @@
     "PEG",
     "PEG.js"
   ],
-  "exports": {
-    ".": "./src/lib/PeggyTracers.js",
-    "./PeggyTracers": "./src/lib/PeggyTracers.js",
-    "./OpDumper": "./src/lib/OpDumper.js",
-    "./ByteCodeWriter": "./src/lib/ByteCodeWriter.js",
-    "./PeggyTracers": "./src/lib/PeggyTracers.js"
-  },
   "homepage": "https://peggyjs.org/",
   "repository": "peggyjs/peggy",
   "bugs": "https://github.com/peggyjs/peggy/issues",
@@ -68,6 +61,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/chai": "^4.3.11",
+    "@types/deep-diff": "^1.0.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
@@ -91,6 +85,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@jdeighan/vllu": "^1.0.2",
     "@peggyjs/from-mem": "1.3.0",
     "commander": "^12.1.0",
     "deep-diff": "^1.0.2",

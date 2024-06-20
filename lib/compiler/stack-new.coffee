@@ -37,17 +37,17 @@ class Stack
 
 		# --- Last used variable in the stack.
 		@sp       = -1
-		@maxSp    = -1       # --- maximum stack size
-		@varName  = varName
+		@maxSp    = -1         # --- maximum stack size
 		@ruleName = ruleName
-		@type     = type
+		@varName  = varName    # 's'
+		@type     = type       # 'var'
 		@bytecode = bytecode
 
 		# --- Map from stack index, to label targetting that index
 
 		@labels = {}
 
-		#  Stack of in-flight source mappings
+		# --- Stack of in-flight source mappings
 		# @type {[SourceArray, number, PEG.LocationRange][]}
 
 		@sourceMapStack = []
@@ -58,7 +58,8 @@ class Stack
 	# @param {number} i Index for which name must be generated
 	# @return {string} Generated name
 	#
-	# @throws {RangeError} If `i < 0`, which means a stack underflow (there are more `pop`s than `push`es)
+	# @throws {RangeError} If `i < 0`, which means a stack underflow
+	# (there are more `pop`s than `push`es)
 
 	name: (i) ->
 
@@ -71,8 +72,9 @@ class Stack
 		return @varName + i
 
 	# ------------------------------------------------------------------------
-	# Assigns `exprCode` to the new variable in the stack, returns generated code.
-	# As the result, the size of a stack increases on 1.
+	# Assigns `exprCode` to the new variable in the stack,
+	#    returns generated code.
+	# As the result, the size of a stack increases by 1.
 	#
 	# @param {string} exprCode Any expression code that must be assigned to the new variable in the stack
 	# @return {string|SourceNode} Assignment code
@@ -111,7 +113,11 @@ class Stack
 				newLoc,
 				code.concat("\n")
 				)
-			@sourceMapStack.push([parts, parts.length + 1, location])
+			@sourceMapStack.push([
+				parts,
+				parts.length + 1,
+				location
+				])
 			return new SourceNode(
 				null,
 				null,
@@ -127,13 +133,17 @@ class Stack
 
 	# ------------------------------------------------------------------------
 	#
-	# Returns name or `n` names of the variable(s) from the top of the stack.
+	# Returns name or `n` names of the variable(s)
+	#    from the top of the stack.
 	#
-	# @param {number} [n] Quantity of variables, which need to be removed from the stack
-	# @returns {string[]|string} Generated name(s). If n is defined then it returns an
-	#                            array of length `n`
+	# @param {number} [n]
+	#    Number of variables which need to be removed from the stack
+	# @returns {string[]|string}
+	#    Generated name(s).
+	#    If n is defined, returns an array of length `n`
 	#
-	# @throws {RangeError} If the stack underflow (there are more `pop`s than `push`es)
+	# @throws {RangeError} If the stack underflow
+	#    (there are more `pop`s than `push`es)
 
 	pop: (n) =>
 
